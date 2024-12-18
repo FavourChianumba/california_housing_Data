@@ -1,0 +1,69 @@
+**Housing Density and Household Features***
+These features focus on the relationship between housing attributes (rooms, bedrooms, etc.) and households or population. Understanding how many rooms or bedrooms are available per person or household helps to identify overcrowded versus more affluent or spacious areas.
+
+Bedroom Ratio: The proportion of bedrooms to total rooms. This could indicate the space allocation in homes.
+
+Rooms per Person: Indicates how many rooms are available for each person in the population, which may highlight overcrowding or affluence.
+
+Income per Household: Shows how income is distributed across households, indicating wealth per family or unit.
+
+Bedrooms per Household: Shows the average number of bedrooms per household, which can provide insights into home size and space.
+
+
+***Geospatial Features***
+Geospatial features capture the relationship between the geographical location (latitude and longitude) and other factors, like income, housing size, and distance to coastlines. These features can reveal patterns based on the location of a house, especially for price prediction models.
+
+Latitude-Longitude Interaction: Captures the interaction between geographic coordinates, which may uncover regional trends affecting house prices, such as coastal vs. inland or north vs. south properties.
+
+
+***Coastal Proximity Features***
+These features capture the proximity to the coastline. Properties closer to the coast can often have higher prices, and understanding this spatial relationship can be crucial in modeling housing prices.
+
+Distance to Coast: The minimum distance from a property to the nearest coastline point. Coastal proximity often correlates with higher property values.
+
+***Population and Income Features***
+These features capture interactions between population, income, and household characteristics. By creating interactions and ratios between these factors, we can better understand the socio-economic environment affecting housing prices.
+
+Population per Household: Average number of people per household, which can indicate overcrowding or affluence.
+
+Rooms per Household: Average number of rooms per household, useful for understanding space allocation.
+
+High-Income Area: A binary indicator of areas where the income exceeds the median income, helping to identify wealthier neighborhoods.
+
+***High-Density and Income-Adjusted Features***
+These features focus on identifying high-density areas and adjusting income levels based on various housing characteristics. These can uncover patterns that show how density and income interact to affect housing prices.
+
+Residential Density per Capita: Measures housing density adjusted by income, helping to capture areas of overcrowding relative to income.
+
+
+
+***Population Density Features***
+These features capture the density of population relative to housing space, which can help to highlight overcrowding or underutilization of space. These are useful for identifying whether a region's housing is adequate for its population.
+
+Population Density per Room: Indicates how many people live per room, which can suggest overcrowding or underutilized housing.
+
+Population per Bedroom: Shows how many people live per bedroom, potentially identifying overcrowding issues.
+
+
+***Rooms and Household Space Interactions***
+These features interact housing space (rooms, bedrooms) with household characteristics (households, income, age of housing). These interactions can highlight how the space per household is adjusted according to the socio-economic environment.
+
+Household Room Interaction: Multiplies households by housing age, revealing how the dynamics between household size and housing age impact space.
+
+
+
+***Income-to-Housing Characteristics***
+These features look at the relationship between income and housing characteristics, such as rooms, household size, and housing age. They help identify whether wealthier areas tend to have larger homes or more spacious environments.
+
+Income to Room Ratio: Measures how income correlates with the number of rooms, helping to identify areas where wealthier individuals live in larger spaces.
+
+Income per Age of Housing: Adjusts income for the age of the housing, helping to identify if wealthier people tend to live in newer or older homes.
+
+
+
+***Location-Adjusted Income Features***
+These features focus on how income interacts with geographic factors like latitude and longitude, which can help uncover regional income trends that influence housing prices. 
+
+Households per Income Category: Shows how household density varies across income categories, highlighting differences in living standards.
+
+Median Age Interaction: Combines median income with housing age to capture the economic trends in older versus newer housing areas.
