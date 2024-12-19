@@ -18,24 +18,26 @@ This repository presents a comprehensive machine learning project for predicting
 
 ## **Overview**
 
-Housing price prediction is a critical application of machine learning, widely used in real estate, banking, and investment industries. The goal of this project is to accurately predict housing prices using historical data on housing features. By employing a variety of machine learning techniques and experimenting with advanced ensemble methods, we aim to achieve robust predictions.
+Housing price prediction is a critical application of machine learning, widely used in real estate, banking, and investment industries to guide pricing decisions and investment strategies. The goal of this project is to accurately predict housing prices based on historical data and key features, such as location, demographics, and property attributes. By applying a range of machine learning techniques—including ensemble methods and neural network meta-models—this project aims to uncover insights that can guide real estate developers, investors, and policymakers in making informed decisions. The analysis also explores key business metrics, such as factors influencing property value, trends in housing prices, and recommendations for maximizing investment returns.
+
 
 ---
 
 ## **Data Description**
 
-We used a publicly available dataset called [California Housing Prices](https://www.kaggle.com/datasets/camnugent/california-housing-prices). This dataset includes the following features:
+We used a publicly available dataset called [California Housing Prices](https://www.kaggle.com/datasets/camnugent/california-housing-prices). This dataset contains features that are directly relevant to the real estate industry, as they influence property value and affordability. Key features include:
 
-1. **longitude**: A measure of how far west a house is; higher values indicate locations farther west.
-2. **latitude**: A measure of how far north a house is; higher values indicate locations farther north.
-3. **housingMedianAge**: Median age of houses within a block; lower values suggest newer buildings.
-4. **totalRooms**: Total number of rooms within a block.
-5. **totalBedrooms**: Total number of bedrooms within a block.
-6. **population**: Total number of people residing within a block.
-7. **households**: Total number of households (groups of people residing in home units) within a block.
-8. **medianIncome**: Median income for households in a block, measured in tens of thousands of US dollars.
-9. **medianHouseValue**: Median house value for households in a block, measured in US dollars.
-10. **oceanProximity**: A categorical feature representing the house's location relative to the ocean (e.g., "NEAR BAY," "INLAND").
+1. **longitude**: A measure of how far west a house is; higher values indicate locations farther west, which are often correlated with higher property values due to proximity to the coast or urban areas.
+2. **latitude**: A measure of how far north a house is; higher values indicate locations farther north, which can affect desirability and pricing based on geographic factors.
+3. **housingMedianAge**: Median age of houses within a block; newer buildings often have higher values, which is important for real estate developers in evaluating potential investment areas.
+4. **totalRooms**: Total number of rooms within a block, which can influence property value and is critical for developers in understanding housing density.
+5. **totalBedrooms**: Total number of bedrooms within a block; more bedrooms often correlate with higher property values, impacting pricing strategies for larger homes.
+6. **population**: Total number of people residing within a block, which affects the demand for housing and local amenities.
+7. **households**: Total number of households within a block; higher household numbers can indicate more demand for housing in the area, helping investors forecast market trends.
+8. **medianIncome**: Median income for households in a block, measured in tens of thousands of US dollars; a key metric that correlates with affordability and price predictions.
+9. **medianHouseValue**: Median house value for households in a block, which is the target variable for our prediction model and represents the financial metric for market value.
+10. **oceanProximity**: A categorical feature representing the house's location relative to the ocean (e.g., "NEAR BAY," "INLAND"). Proximity to the ocean often drives up property values, making this feature crucial for pricing models.
+
 
 ---
 
@@ -76,86 +78,46 @@ This preprocessing step ensures compatibility with machine learning models and a
 
 ## Workflow
 
-graph TD
-    A[Data Collection] --> B[Exploratory Data Analysis]
-    B --> C[Feature Engineering]
-    C --> D[Model Development]
-    D --> E[Ensemble Methods]
-    E --> F[Performance Evaluation]
-    
-    subgraph "Feature Engineering"
-    C1[Log Transformations] --> C
-    C2[Interaction Features] --> C
-    C3[Geographical Features] --> C
-    C4[Custom Transformers] --> C
-    end
-    
-    subgraph "Model Development"
-    D1[Linear Models] --> D
-    D2[Tree-Based Models] --> D
-    D3[Advanced Regression] --> D
-    D4[Neural Networks] --> D
-    end
-    
-    subgraph "Ensemble Methods"
-    E1[Weighted Averaging] --> E
-    E2[Stacking] --> E
-    end
-
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#f9f,stroke:#333,stroke-width:2px
-    style C fill:#bbf,stroke:#333,stroke-width:2px
-    style D fill:#bbf,stroke:#333,stroke-width:2px
-    style E fill:#bbf,stroke:#333,stroke-width:2px
-    style F fill:#f9f,stroke:#333,stroke-width:2px
-
-
+## Project Workdlow Pipeline Diagram
+![Project Workdlow Pipeline](./images/ProjectWorkflowDiagram.png)
 
 1. **Exploratory Data Analysis (EDA):**
    - Investigated feature distributions and correlations.
    - Visualized patterns between features and target values.
    - Identified and handled missing values.
 
-2. **Feature Engineering and Preprocessing**
-   ### Advanced Feature Transformation Techniques
-   - **Comprehensive Feature Creation**
-     - Log transformations to handle skewed numerical features
-     - Generated interaction features capturing complex relationships
-     - Created derived features including:
-       * Bedroom-to-room ratio
-       * Rooms per person
-       * Income per household
-       * Residential density metrics
-       * Geographical interaction features
+## 2. **Feature Engineering and Preprocessing**
 
-   ### Preprocessing Pipeline
-      graph LR
-         A[Raw Data] --> B[Custom Feature Engineering]
-         B --> C[Missing Value Imputation]
-         C --> D[Outlier Handling]
-         D --> E[Feature Scaling]
-         E --> F[Feature Selection]
-         
-         style A fill:#f9f,stroke:#333,stroke-width:2px
-         style B fill:#bbf,stroke:#333,stroke-width:2px
-         style C fill:#bbf,stroke:#333,stroke-width:2px
-         style D fill:#bbf,stroke:#333,stroke-width:2px
-         style E fill:#bbf,stroke:#333,stroke-width:2px
-         style F fill:#f9f,stroke:#333,stroke-width:2px
+### Advanced Feature Transformation Techniques
+- **Comprehensive Feature Creation**:
+  - Applied log transformations to address skewness in numerical features (`total_rooms`, `total_bedrooms`, `population`, `households`).
+  - Generated interaction features to capture complex relationships between variables, including:
+    - **Ratios**: Bedroom-to-room ratio, rooms per person, income per household.
+    - **Density Metrics**: Residential density, population density per room, population per bedroom.
+    - **Geographical Interactions**: Latitude-longitude interaction, minimum distance to coastline using Haversine formula.
+    - **Additional Interactions**: Household-age interaction, income-to-room ratio, income per housing age.
+  - Created binary indicators (e.g., high-income area flag) to distinguish between median-based segments.
+  
+### Preprocessing Pipeline
+- **Robust Data Preparation**:
+  - Developed a custom `FeatureEngineering` transformer for automated advanced feature generation.
+  - Calculated geographical proximity metrics (e.g., distance to coastline) for enriched spatial analysis.
+  - Addressed missing and infinite values using a combination of mean imputation and dynamic outlier handling.
+  - Scaled numerical features to ensure uniformity across variable ranges using `StandardScaler`.
+  - Encoded categorical variables with `OneHotEncoder` (with `drop_first=True` to mitigate multicollinearity).
+  - Applied feature selection using a Random Forest-based approach to retain impactful predictors.
 
-   - **Robust Data Preparation**
-     - Custom `FeatureEngineering` transformer for advanced feature generation
-     - Haversine distance calculation for geographical features
-     - Outlier handling using mean imputation
-     - Numerical feature scaling with StandardScaler
-     - Categorical feature encoding using OneHotEncoder
-     - Feature selection using Random Forest feature importance
+### Key Preprocessing Innovations
+- **Dynamic Feature Identification**: Automated separation of numerical and categorical features for flexible, adaptable preprocessing.
+- **Robust Missing Value Handling**: Ensured clean datasets through systematic imputation of missing and infinite values.
+- **Feature Interpretability**: Created intuitive derived features to maintain transparency in data transformations.
+- **Scalable Pipeline Design**: Constructed a modular and reusable preprocessing pipeline compatible with multiple modeling techniques.
 
-   ### Key Preprocessing Innovations
-   - Dynamic feature type identification
-   - Handling of missing and infinite values
-   - Preservation of feature interpretability
-   - Scalable preprocessing approach compatible with multiple models
+### Preprocessing Pipeline Flowchart
+
+## Preprocessing Pipeline Diagram
+![Preprocessing Pipeline](./images/PreprocessingDiagram.png)
+
 
 3. **Modeling and Optimization**
    ### Comprehensive Modeling Strategy
@@ -353,34 +315,38 @@ We implemented two stacking approaches using different meta-learners:
 
 ### Model Performance Visualization
 
+## Model Performance Diagram
+![Model Performance](./images/ModelPerformanceDiagram.png)
 
-graph TB
-    subgraph "Model Training Pipeline"
-        A[Individual Models] --> B[Weighted Averaging]
-        A --> C[Stacking Ensembles]
-        
-        subgraph "Base Models"
-            D[LightGBM<br/>R² = 0.4168] --> A
-            E[XGBoost<br/>R² = 0.4343] --> A
-        end
-        
-        subgraph "Ensemble Methods"
-            B --> F[0.1/0.9 Split<br/>R² = 0.4338]
-            B --> G[0.01/0.99 Split<br/>R² = 0.4343]
-            C --> H[Ridge Meta-learner<br/>R² = 0.4440]
-            C --> I[Neural Meta-learner<br/>R² = 0.4404]
-        end
-    end
+```mermaid
+      graph TB
+         subgraph "Model Training Pipeline"
+            A[Individual Models] --> B[Weighted Averaging]
+            A --> C[Stacking Ensembles]
+            
+            subgraph "Base Models"
+                  D[LightGBM<br/>R² = 0.4168] --> A
+                  E[XGBoost<br/>R² = 0.4343] --> A
+            end
+            
+            subgraph "Ensemble Methods"
+                  B --> F[0.1/0.9 Split<br/>R² = 0.4338]
+                  B --> G[0.01/0.99 Split<br/>R² = 0.4343]
+                  C --> H[Ridge Meta-learner<br/>R² = 0.4440]
+                  C --> I[Neural Meta-learner<br/>R² = 0.4404]
+            end
+         end
 
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bbf,stroke:#333,stroke-width:2px
-    style D fill:#dfd,stroke:#333,stroke-width:2px
-    style E fill:#dfd,stroke:#333,stroke-width:2px
-    style F fill:#ddf,stroke:#333,stroke-width:2px
-    style G fill:#ddf,stroke:#333,stroke-width:2px
-    style H fill:#ddf,stroke:#333,stroke-width:2px
-    style I fill:#ddf,stroke:#333,stroke-width:2px
+         style A fill:#f9f,stroke:#333,stroke-width:2px
+         style B fill:#bbf,stroke:#333,stroke-width:2px
+         style C fill:#bbf,stroke:#333,stroke-width:2px
+         style D fill:#dfd,stroke:#333,stroke-width:2px
+         style E fill:#dfd,stroke:#333,stroke-width:2px
+         style F fill:#ddf,stroke:#333,stroke-width:2px
+         style G fill:#ddf,stroke:#333,stroke-width:2px
+         style H fill:#ddf,stroke:#333,stroke-width:2px
+         style I fill:#ddf,stroke:#333,stroke-width:2px
+```
 
 ### Key Findings
 
