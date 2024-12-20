@@ -105,7 +105,6 @@ This preprocessing step ensures compatibility with machine learning models and a
   - Addressed missing and infinite values using a combination of mean imputation and dynamic outlier handling.
   - Scaled numerical features to ensure uniformity across variable ranges using `StandardScaler`.
   - Encoded categorical variables with `OneHotEncoder` (with `drop_first=True` to mitigate multicollinearity).
-  - Applied feature selection using a Random Forest-based approach to retain impactful predictors.
 
 ### Key Preprocessing Innovations
 - **Dynamic Feature Identification**: Automated separation of numerical and categorical features for flexible, adaptable preprocessing.
@@ -317,36 +316,6 @@ We implemented two stacking approaches using different meta-learners:
 
 ## Model Performance Diagram
 ![Model Performance](./images/ModelPerformanceDiagram.png)
-
-```mermaid
-      graph TB
-         subgraph "Model Training Pipeline"
-            A[Individual Models] --> B[Weighted Averaging]
-            A --> C[Stacking Ensembles]
-            
-            subgraph "Base Models"
-                  D[LightGBM<br/>R² = 0.4168] --> A
-                  E[XGBoost<br/>R² = 0.4343] --> A
-            end
-            
-            subgraph "Ensemble Methods"
-                  B --> F[0.1/0.9 Split<br/>R² = 0.4338]
-                  B --> G[0.01/0.99 Split<br/>R² = 0.4343]
-                  C --> H[Ridge Meta-learner<br/>R² = 0.4440]
-                  C --> I[Neural Meta-learner<br/>R² = 0.4404]
-            end
-         end
-
-         style A fill:#f9f,stroke:#333,stroke-width:2px
-         style B fill:#bbf,stroke:#333,stroke-width:2px
-         style C fill:#bbf,stroke:#333,stroke-width:2px
-         style D fill:#dfd,stroke:#333,stroke-width:2px
-         style E fill:#dfd,stroke:#333,stroke-width:2px
-         style F fill:#ddf,stroke:#333,stroke-width:2px
-         style G fill:#ddf,stroke:#333,stroke-width:2px
-         style H fill:#ddf,stroke:#333,stroke-width:2px
-         style I fill:#ddf,stroke:#333,stroke-width:2px
-```
 
 ### Key Findings
 

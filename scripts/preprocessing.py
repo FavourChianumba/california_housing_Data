@@ -5,9 +5,6 @@ from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.impute import SimpleImputer
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.feature_selection import SelectFromModel
-
 
 # Haversine formula to calculate distance between two points (latitude, longitude)
 def haversine(lat1, lon1, lat2, lon2):
@@ -154,23 +151,6 @@ class OutlierHandler(BaseEstimator, TransformerMixin):
         X = X.fillna(self.fill_values_)  # Fill NaN with computed values (e.g., mean)
         return X
 
-
-# Feature selection class
-class FeatureSelector(BaseEstimator, TransformerMixin):
-    def __init__(self, threshold='median'):
-        self.threshold = threshold
-        self.selector = None
-
-    def fit(self, X, y):
-        model = RandomForestRegressor(n_estimators=100, random_state=42)
-        model.fit(X, y)
-        self.selector = SelectFromModel(model, threshold=self.threshold, prefit=True)
-        return self
-
-    def transform(self, X):
-        return pd.DataFrame(self.selector.transform(X), index=X.index, columns=X.columns[self.selector.get_support()])
-
-
 # Function to create preprocessing pipeline for numerical and categorical features
 def create_preprocessing_pipeline(numerical_features, categorical_features):
     """
@@ -233,19 +213,4 @@ def preprocess_data(train_data, coastline_points):
     # Create preprocessing pipeline based on feature types
     preprocessing_pipeline = create_preprocessing_pipeline(numerical_features, categorical_features)
 
-    # Apply the preprocessing pipeline
-    # Apply the preprocessing pipeline
-    x_train_preprocessed = preprocessing_pipeline.fit_transform(x_train_fe)
-
-    # ** Why preprocess again here? **
-    # At this point, `x_train_preprocessed` is the standardized, encoded version of `x_train_fe`.
-    # Feature selection methods like Random Forest expect numerical arrays and work with cleaned data.
-    # Preprocessing ensures the data is in the correct format (e.g., no missing values, standardized scales, etc.)
-    
-    # Apply feature selection
-    feature_selector = FeatureSelector(threshold='median')
-    x_train_selected = feature_selector.fit_transform(
-        pd.DataFrame(x_train_preprocessed, columns=numerical_features + categorical_features),
-        y_train)
-    
-    return x_train_selected, y_train, preprocessing_pipeline
+    return x_train_fe, y_train, preprocessing_pipeline  # Return preprocessed data and pipeline
