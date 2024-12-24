@@ -330,6 +330,7 @@ Best Performance: Achieved R² score of 0.4440 with Ridge-based stacking ensembl
 
 ### **Potential Improvements**
 - Advanced feature engineering
+- Feature Selection
 - Hyperparameter tuning
 - Exploring more sophisticated ensemble methods
 - Collecting additional relevant features
@@ -338,7 +339,49 @@ Best Performance: Achieved R² score of 0.4440 with Ridge-based stacking ensembl
 
 ## **How to Use This Repository**
 
-1. **Clone the Repository**:
+1. **Clone the Repository** (if applicable):  
+   If you're working locally, clone the repository:  
    ```bash
    git clone https://github.com/yourusername/housing-price-prediction.git
    cd housing-price-prediction
+
+2. **. Set Up the Dependencies**:  
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+   Alternatively, install the libraries directly in the notebook:   
+   ```bash
+   !pip install -r requirements.txt
+   ```
+
+3. **Prepare the Dataset**: 
+   Download the dataset:
+   Download the housing data from Kaggle or the source provided above in the README.md file.
+
+   Place the dataset:
+   Move the downloaded dataset into the data/ directory of this repository. Ensure the file is named appropriately (e.g., housing_data.csv).
+
+4. **Run the Notebook**:  
+   Open the Jupyter Notebook file (housing_price_prediction.ipynb) and execute the cells in sequence.
+
+   The cells will guide you through data preprocessing, training, evaluation, and making predictions.
+   Key sections include:
+
+      Stratified Split: Ensures a balanced division of data into training and test sets.
+      Data Preprocessing: Divides the dataset into features and labels, and handles missing values.
+      Model Training: Trains a machine learning model using the processed data.
+      Evaluation: Evaluates the model's performance on a test dataset.
+      Prediction: Uses the trained model to predict housing prices for new data.
+
+5. **Optional**: 
+   Explore the notebook's analysis section for insights into data distribution, feature importance, and model performance.
+
+6. **Contribute**:
+   Fork the repository (if applicable).
+   Make improvements in the notebook.
+   Submit a pull request with your changes.
+
+7. **Contact**:
+   Open an issue on GitHub.
+   Email: chianumbaf@hotmail.co.uk
